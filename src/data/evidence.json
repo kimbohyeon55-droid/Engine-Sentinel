@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "verifiedOn": "2026-10-18",
+  "experiments": [
+    {
+      "id": "V3.8",
+      "model": "Nested run-adaptive residual scoring",
+      "scope": "9 eligible development runs; one cold-start run excluded",
+      "aggregation": "Pooled row metrics; AUROC median across 9 outer runs",
+      "rows": 49284,
+      "runs": 9,
+      "recall": 0.8110979929161747,
+      "specificity": 0.7883017398078421,
+      "precision": 0.8939201717575875,
+      "f1": 0.850497516287275,
+      "auroc": 0.9920073732607673,
+      "aurocMin": 0.9253318157343557,
+      "falseEvent": null,
+      "threshold": "Inner-run selection: 80 calibration/smoothing/top-fraction configurations; outer thresholds 5.6064\u201310.9914",
+      "decision": "Target not met",
+      "source": "results/v38/V38_SUMMARY.json",
+      "note": "High within-run ranking does not establish a transferable alarm threshold. Event detection allows earlier false alarms; not comparable to clean-event metrics."
+    },
+    {
+      "id": "V3.16 ROBUST_Z",
+      "model": "Run-relative robust z",
+      "scope": "9 eligible development runs; frozen V3.8 scores",
+      "aggregation": "Unweighted mean of outer-run metrics",
+      "rows": null,
+      "runs": 9,
+      "recall": 0.8857595694470841,
+      "specificity": 0.7178510136808548,
+      "precision": 0.8960144160400881,
+      "f1": 0.8739185648495214,
+      "auroc": null,
+      "aurocMin": null,
+      "falseEvent": 0.6666666666666666,
+      "threshold": "1500 s commissioning; inner-run threshold selection; robust-z grid 0\u201312, step 0.25",
+      "decision": "Target not met",
+      "source": "results/v316/V316_SUMMARY.json + V316_OUTER_RESULTS.csv",
+      "note": "Commissioning eligibility checks normal labels. Reuses nested V3.8 scores; end-to-end nested independence not established by this summary."
+    },
+    {
+      "id": "V3.16 EMPIRICAL_PERCENTILE",
+      "model": "Run-relative empirical percentile",
+      "scope": "9 eligible development runs; frozen V3.8 scores",
+      "aggregation": "Unweighted mean of outer-run metrics",
+      "rows": null,
+      "runs": 9,
+      "recall": 0.9940912010276173,
+      "specificity": 0.498829767082442,
+      "precision": 0.8101333982282115,
+      "f1": 0.8887263358465143,
+      "auroc": null,
+      "aurocMin": null,
+      "falseEvent": 1.0,
+      "threshold": "1500 s commissioning; empirical percentile grid 0.90\u20130.999",
+      "decision": "Target not met",
+      "source": "results/v316/V316_SUMMARY.json + V316_OUTER_RESULTS.csv",
+      "note": "Commissioning eligibility checks normal labels. Reuses nested V3.8 scores; end-to-end nested independence not established by this summary."
+    },
+    {
+      "id": "V3.18",
+      "model": "Regime residual + latched CUSUM",
+      "scope": "10 development runs, including cold-start scenario",
+      "aggregation": "Run means; undefined values omitted (specificity: 9 of 10 runs)",
+      "rows": null,
+      "runs": 10,
+      "recall": 0.9992940798973207,
+      "specificity": 0.0127746938822741,
+      "precision": 0.7140137607815683,
+      "f1": 0.824225194371459,
+      "auroc": null,
+      "aurocMin": null,
+      "falseEvent": 0.9,
+      "threshold": "450 s commissioning; nearest 3 regimes; local weight .5; 30 s smoothing; CUSUM k=.25, h=8, decay=.98",
+      "decision": "Rejected for operational use",
+      "source": "results/v318/V318_SUMMARY.json",
+      "note": "Recall is near 1, but normal false-positive rate is 98.72%. A latched alarm causes persistent alarms after an early crossing. Commissioning is not guaranteed normal."
+    }
+  ],
+  "confusion": {
+    "version": "V3.8",
+    "labels": [
+      "Normal",
+      "Abnormal"
+    ],
+    "matrix": [
+      [
+        12143,
+        3261
+      ],
+      [
+        6400,
+        27480
+      ]
+    ],
+    "orientation": "Rows: actual; columns: predicted; pooled evaluation rows"
+  },
+  "classification": {
+    "version": "V3.4",
+    "strictMacroF1": 0.18604078147281145,
+    "knownMacroF1": 0.5611314313290018,
+    "strictRows": 5765,
+    "zeroRecallClasses": 3
+  },
+  "laterContext": {
+    "version": "V4.9A",
+    "recall": 0.587693978711063,
+    "specificity": 0.920451314445998,
+    "falseEventRate": 0.3333333333333333,
+    "status": "Saved summary only; protocol not fully audited"
+  },
+  "evidence": [
+    {
+      "path": "results/v38/V38_SUMMARY.json",
+      "sha256": "74804b4b1a973c7d97da0d776389508bf28ad401a9d125923dee771c7b3ecdef",
+      "status": "Verified against saved aggregate; training not rerun"
+    },
+    {
+      "path": "results/v316/V316_SUMMARY.json",
+      "sha256": "a64df85ccc92cfbd30bab278346742cd47f99e4e81f2f6367780f62d01fc9e03",
+      "status": "Verified against saved aggregate; training not rerun"
+    },
+    {
+      "path": "results/v318/V318_SUMMARY.json",
+      "sha256": "2511a9241d4603e525e1ff0989ca22eebc6e32f780c51e7f2e7abe86c1d58f47",
+      "status": "Verified against saved aggregate; training not rerun"
+    },
+    {
+      "path": "results/v34/submission_metrics.json",
+      "sha256": "77a1ad07d8df2dd7ce795a60c788153a9a8cdb0f8cd849f66a66bf2f946dbb7a",
+      "status": "Verified against saved aggregate; training not rerun"
+    },
+    {
+      "path": "results/v49a/V49A_SUMMARY.json",
+      "sha256": "d09da25a3d343c4a6a71a49ada2224eabbb64a5c92ee57521ae26238fa62c26a",
+      "status": "Verified against saved aggregate; training not rerun"
+    },
+    {
+      "path": "results/v316/V316_OUTER_RESULTS.csv",
+      "sha256": "d284a1285d9d06e8b1d98b93cc574a9c75bb7fa458189c4129ae8959a4fd101d",
+      "status": "Aggregate run metrics only; no record predictions read"
+    },
+    {
+      "path": "results/v318/V318_OUTER_RESULTS.csv",
+      "sha256": "059fe6f3e8a801bd1dd8c35c71e76128307da0998dc8c96938ba2fc678029b2b",
+      "status": "Aggregate run metrics only; no record predictions read"
+    },
+    {
+      "path": "results/v38/V38_OUTER_RUN_RESULTS.csv",
+      "sha256": "1a90a3903d07538dc89cbb859a68141a878964a9af6c67b00ba51888bd932be6",
+      "status": "Aggregate run metrics only; no record predictions read"
+    }
+  ]
+}
